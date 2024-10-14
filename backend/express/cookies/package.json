@@ -1,0 +1,15 @@
+{
+  "name": "cookies",
+  "version": "1.0.0",
+  "description": "Practicing cookies and sessions with express and node.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sanket Mishra",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.1"
+  }
+}

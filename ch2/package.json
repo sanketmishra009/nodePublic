@@ -1,0 +1,15 @@
+{
+  "name": "node.test",
+  "version": "1.0.0",
+  "description": "A package to learn about node.",
+  "main": "node",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sanket Mishra",
+  "license": "ISC",
+  "dependencies": {
+    "moustache": "^0.0.4",
+    "mustache": "^4.2.0"
+  }
+}
