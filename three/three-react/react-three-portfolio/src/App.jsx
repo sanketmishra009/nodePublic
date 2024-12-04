@@ -1,13 +1,14 @@
 import React from 'react'
+import Navbar from './sections/Navbar';
+import Hero from './sections/Hero';
 
 function App() {
   return (
-    <div>
-      <h1 className='text-2xl text-white underline font-bold'>
-        Hello!
-      </h1>
-    </div>
+    <main className='max-w-7xl mx-auto'>
+      <Navbar />
+      <Hero />
+    </main>
   )
 }
 
-export default App
+export default App;
