@@ -1,11 +1,13 @@
 ---
 
-```sh
 # Navigate to the backend directory of the uberClone project
+
 cd /Users/sanketmishra/Desktop/Desktop/code/node/uberClone/backend
 
 # Create the README.md file and open it in VS Code for editing
+
 cat <<EOL > README.md
+
 # `/users/register` and `/users/login` Endpoint Documentation
 
 ## Introduction
@@ -42,12 +44,12 @@ The endpoint expects the following JSON payload in the request body:
 
 \`\`\`json
 {
-  "fullname": {
-    "firstname": "John",
-    "lastname": "Doe"
-  },
-  "email": "john.doe@example.com",
-  "password": "securePassword123"
+"fullname": {
+"firstname": "John",
+"lastname": "Doe"
+},
+"email": "john.doe@example.com",
+"password": "securePassword123"
 }
 \`\`\`
 
@@ -62,8 +64,8 @@ The endpoint expects the following JSON payload in the request body:
 
 \`\`\`json
 {
-  "email": "john.doe@example.com",
-  "password": "securePassword123"
+"email": "john.doe@example.com",
+"password": "securePassword123"
 }
 \`\`\`
 
@@ -72,24 +74,29 @@ The endpoint expects the following JSON payload in the request body:
 ### \`/users/register\`
 
 1. **Validation**
+
    - Defined in [\`backend/routes/user.route.js\`](backend/routes/user.route.js).
    - Utilizes \`express-validator\` to ensure all required fields are provided and meet the specified criteria.
    - If validation fails, a \`400 Bad Request\` response is returned with error details.
 
 2. **Check Existing User**
+
    - Handled in [\`backend/controllers/user.controller.js\`](backend/controllers/user.controller.js).
    - Checks if a user with the provided email already exists in the database using the \`userModel\`.
 
 3. **Password Hashing**
+
    - Performed in [\`backend/models/user.model.js\`](backend/models/user.model.js).
    - Uses the \`hashPassword\` method to securely hash the user's password before storage.
 
 4. **User Creation**
+
    - Managed by [\`backend/services/user.service.js\`](backend/services/user.service.js).
    - Creates a new user with the provided credentials and hashed password.
    - Records the creation time.
 
 5. **Token Generation**
+
    - Executed in [\`backend/controllers/user.controller.js\`](backend/controllers/user.controller.js).
    - Generates an authentication token using the \`generateAuthToken\` method from the \`userModel\`.
 
@@ -99,20 +106,24 @@ The endpoint expects the following JSON payload in the request body:
 ### \`/users/login\`
 
 1. **Validation**
+
    - Defined in [\`backend/routes/user.route.js\`](backend/routes/user.route.js).
    - Utilizes \`express-validator\` to ensure all required fields are provided and meet the specified criteria.
    - If validation fails, a \`400 Bad Request\` response is returned with error details.
 
 2. **Check User Credentials**
+
    - Handled in [\`backend/controllers/user.controller.js\`](backend/controllers/user.controller.js).
    - Checks if a user with the provided email exists in the database using the \`userModel\`.
    - If the user does not exist, a \`401 Unauthorized\` response is returned with a message: "Invalid email or password".
 
 3. **Password Comparison**
+
    - Compares the provided password with the stored hashed password using the \`comparePassword\` method in the \`userModel\`.
    - If the passwords do not match, a \`401 Unauthorized\` response is returned with a message: "Invalid email or password".
 
 4. **Token Generation**
+
    - Generates an authentication token using the \`generateAuthToken\` method from the \`userModel\`.
 
 5. **Response**
@@ -121,10 +132,12 @@ The endpoint expects the following JSON payload in the request body:
 ## Role of Each File
 
 - **\`backend/routes/user.route.js\`:**
+
   - Defines the \`/register\` and \`/login\` routes.
   - Applies validation middleware to incoming requests.
 
 - **\`backend/controllers/user.controller.js\`:**
+
   - Handles the logic for registering and logging in a user.
   - Validates input data.
   - Checks for existing users.
@@ -132,10 +145,12 @@ The endpoint expects the following JSON payload in the request body:
   - Generates the authentication token.
 
 - **\`backend/services/user.service.js\`:**
+
   - Contains the \`createUser\` function that handles user creation in the database.
   - Validates user credentials and records the creation time.
 
 - **\`backend/models/user.model.js\`:**
+
   - Defines the \`User\` schema and model using Mongoose.
   - Includes methods for hashing passwords (\`hashPassword\`) and generating authentication tokens (\`generateAuthToken\`).
 
@@ -168,12 +183,12 @@ JWT_SECRET=uber-project
 
 \`\`\`json
 {
-  "errors": [
-    {
-      "msg": "Invalid Email",
-      "param": "email"
-    }
-  ]
+"errors": [
+{
+"msg": "Invalid Email",
+"param": "email"
+}
+]
 }
 \`\`\`
 
@@ -184,7 +199,7 @@ JWT_SECRET=uber-project
 
 \`\`\`json
 {
-  "message": "User already exists"
+"message": "User already exists"
 }
 \`\`\`
 
@@ -195,7 +210,7 @@ JWT_SECRET=uber-project
 
 \`\`\`json
 {
-  "message": "Invalid email or password"
+"message": "Invalid email or password"
 }
 \`\`\`
 
@@ -238,5 +253,8 @@ JWT_SECRET=uber-project
 4. **Test the Endpoints**
 
    Use tools like Postman or cURL to test the \`/users/register\` and \`/users/login\` endpoints.
-EOL
+   EOL
+
+```
+
 ```
