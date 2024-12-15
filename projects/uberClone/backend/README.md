@@ -1,6 +1,6 @@
 # User Authentication API Documentation
 
-This document provides a detailed explanation of the `/users/register` and `/users/login` API endpoints. These endpoints are part of the user authentication system.
+This document provides a detailed explanation of the `/users/register`, `/users/login`, `/users/profile`, and `/users/logout` API endpoints. These endpoints are part of the user authentication system.
 
 ## Table of Contents
 
@@ -8,6 +8,8 @@ This document provides a detailed explanation of the `/users/register` and `/use
 - [Endpoints Overview](#endpoints-overview)
   - [/users/register](#usersregister)
   - [/users/login](#userslogin)
+  - [/users/profile](#usersprofile)
+  - [/users/logout](#userslogout)
 - [File Structure](#file-structure)
 
 ---
@@ -124,6 +126,74 @@ The request body must include the following JSON structure:
 
 ---
 
+### `/users/profile`
+
+**Method:** GET  
+**Description:** Retrieves the profile information of the currently authenticated user.
+
+#### Input
+
+- No request body is required.
+- Requires an authentication token to be provided in the request headers or cookies.
+
+**Headers:**
+
+- `Authorization: Bearer <access_token>`
+
+#### Output
+
+- **Success (200):**  
+  Returns the user's profile information.
+
+  ```json
+  {
+    "user": {
+      "_id": "string",
+      "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+      },
+      "email": "string",
+      "createdAt": "string"
+    }
+  }
+  ```
+
+- **Error (401):**  
+  Unauthorized access due to a missing or invalid token.
+
+---
+
+### `/users/logout`
+
+**Method:** GET  
+**Description:** Logs out the currently authenticated user by invalidating their session token.
+
+#### Input
+
+- No request body is required.
+- Requires an authentication token to be provided in the request headers or cookies.
+
+**Headers:**
+
+- `Authorization: Bearer <access_token>`
+
+#### Output
+
+- **Success (200):**  
+  Confirms that the user has been successfully logged out.
+
+  ```json
+  {
+    "message": "Logged <user_email> out successfully!"
+  }
+  ```
+
+- **Error (401):**  
+  Unauthorized access due to a missing or invalid token.
+
+---
+
 ## File Structure
 
 - **dbConnect.js**  
@@ -148,9 +218,11 @@ The request body must include the following JSON structure:
 
   - `registerUser(req, res)`: Handles user registration.
   - `loginUser(req, res)`: Handles user login.
+  - `getUserProfile(req, res)`: Retrieves the user's profile information.
+  - `logoutUser(req, res)`: Logs out the user.
 
 - **user.route.js**  
-  Defines the API routes and applies validation for `/users/register` and `/users/login`.
+  Defines the API routes and applies validation for `/users/register`, `/users/login`, `/users/profile`, and `/users/logout`.
 
 ---
 
