@@ -226,5 +226,257 @@ The request body must include the following JSON structure:
 
 ---
 
+# Captain API Documentation
+
+This document provides a detailed explanation of the captain-related API endpoints. These endpoints enable registration, authentication, profile retrieval, and logout functionalities for captains.
+
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Endpoints Overview](#endpoints-overview)
+  - [/captains/register](#captainsregister)
+  - [/captains/login](#captainslogin)
+  - [/captains/profile](#captainsprofile)
+  - [/captains/logout](#captainslogout)
+- [File Structure](#file-structure)
+
+---
+
+## Prerequisites
+
+Ensure the following environment variables are set up in your `.env` file:
+
+- `DB_CONNECT`: Connection string for the MongoDB database.
+- `JWT_SECRET`: Secret key for generating JSON Web Tokens.
+
+Run the server after installing the dependencies:
+
+```bash
+npm install
+npm start
+```
+
+---
+
+## Endpoints Overview
+
+### `/captains/register`
+
+**Method:** POST  
+**Description:** This endpoint registers a new captain by accepting their personal and vehicle details.
+
+#### Input
+
+The request body must include the following JSON structure:
+
+```json
+{
+  "fullname": {
+    "firstname": "string",
+    "lastname": "string"
+  },
+  "email": "string",
+  "password": "string",
+  "vehicle": {
+    "color": "string",
+    "plate": "string",
+    "capacity": "number",
+    "vehicleType": "string"
+  }
+}
+```
+
+**Validation Rules:**
+
+- `email`: Must be a valid email address.
+- `fullname.firstname`: Must have a minimum length of 3 characters.
+- `password`: Must have a minimum length of 6 characters.
+- `vehicle.color`: Must have a minimum length of 3 characters.
+- `vehicle.plate`: Must have a minimum length of 3 characters.
+- `vehicle.capacity`: Must be an integer greater than or equal to 1.
+- `vehicle.vehicleType`: Must be one of `car`, `motorcycle`, or `auto`.
+
+#### Output
+
+- **Success (201):**  
+  Returns the captain's information and a generated authentication token.
+  ```json
+  {
+    "token": "string",
+    "captain": {
+      "_id": "string",
+      "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+      },
+      "email": "string",
+      "vehicle": {
+        "color": "string",
+        "plate": "string",
+        "capacity": "number",
+        "vehicleType": "string"
+      },
+      "createdAt": "string"
+    }
+  }
+  ```
+- **Error (400):**
+  - Missing or invalid fields.
+  - Captain already exists.
+
+---
+
+### `/captains/login`
+
+**Method:** POST  
+**Description:** This endpoint authenticates an existing captain with their credentials.
+
+#### Input
+
+The request body must include the following JSON structure:
+
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+**Validation Rules:**
+
+- `email`: Must be a valid email address.
+- `password`: Must have a minimum length of 6 characters.
+
+#### Output
+
+- **Success (200):**  
+  Returns the captain's information and a generated authentication token.
+  ```json
+  {
+    "token": "string",
+    "captain": {
+      "_id": "string",
+      "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+      },
+      "email": "string",
+      "vehicle": {
+        "color": "string",
+        "plate": "string",
+        "capacity": "number",
+        "vehicleType": "string"
+      },
+      "createdAt": "string"
+    }
+  }
+  ```
+- **Error (401):**
+  - Invalid email or password.
+
+---
+
+### `/captains/profile`
+
+**Method:** GET  
+**Description:** Retrieves the profile information of the currently authenticated captain.
+
+#### Input
+
+- No request body is required.
+- Requires an authentication token to be provided in the request headers or cookies.
+
+**Headers:**
+
+- `Authorization: Bearer <access_token>`
+
+#### Output
+
+- **Success (200):**  
+  Returns the captain's profile information.
+
+  ```json
+  {
+    "captain": {
+      "_id": "string",
+      "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+      },
+      "email": "string",
+      "vehicle": {
+        "color": "string",
+        "plate": "string",
+        "capacity": "number",
+        "vehicleType": "string"
+      },
+      "createdAt": "string"
+    }
+  }
+  ```
+
+- **Error (401):**  
+  Unauthorized access due to a missing or invalid token.
+
+---
+
+### `/captains/logout`
+
+**Method:** GET  
+**Description:** Logs out the currently authenticated captain by invalidating their session token.
+
+#### Input
+
+- No request body is required.
+- Requires an authentication token to be provided in the request headers or cookies.
+
+**Headers:**
+
+- `Authorization: Bearer <access_token>`
+
+#### Output
+
+- **Success (200):**  
+  Confirms that the captain has been successfully logged out.
+
+  ```json
+  {
+    "message": "Logged out successfully"
+  }
+  ```
+
+- **Error (401):**  
+  Unauthorized access due to a missing or invalid token.
+
+---
+
+## File Structure
+
+- **captain.model.js**  
+  Defines the schema for the `Captain` model, including methods for password hashing and token generation.  
+  **Key Methods:**
+
+  - `hashPassword(password)`: Hashes the captain's password.
+  - `comparePassword(password)`: Compares hashed passwords.
+  - `generateToken()`: Generates a JWT token.
+
+- **captain.service.js**  
+  Contains business logic for creating new captains.  
+  **Key Method:** `createCaptain(captainDetails)`
+
+- **captain.controller.js**  
+  Handles requests and responses for captain-related operations.  
+  **Key Methods:**
+
+  - `registerCaptain(req, res)`: Handles captain registration.
+  - `loginCaptain(req, res)`: Handles captain login.
+  - `getCaptainProfile(req, res)`: Retrieves the captain's profile information.
+  - `logoutCaptain(req, res)`: Logs out the captain.
+
+- **captain.route.js**  
+  Defines the API routes and applies validation for `/captains/register`, `/captains/login`, `/captains/profile`, and `/captains/logout`.
+
+---
+
 **Author:**  
 Generated with ❤️ by Sanket Mishra
