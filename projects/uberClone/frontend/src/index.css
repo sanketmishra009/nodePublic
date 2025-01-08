@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .bg-uber {
+    background-image: url("/images/bg.png");
+  }
+  .bg-uber2 {
+    background-image: url("/images/bg2.png");
+  }
+  .bg-captainSignup {
+    background-image: url("/images/captainSignup.png");
+    background-size: 400px 100px;
+    background-origin: center;
+    /* background-repeat: no-repeat; */
+    background-position: center;
+  }
+  .input-field {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0.5rem;
+    font-size: 15px;
+    border: 0.16rem solid black;
+    border-radius: 0.5rem;
+    /* line-height: 40%; */
+  }
+}
