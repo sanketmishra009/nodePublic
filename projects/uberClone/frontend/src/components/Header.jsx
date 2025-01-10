@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Home from '../pages/Home'
+import Home from '../pages/Start'
 
 const Header = (props) => {
     // console.log(props.captain == 'true' ? '/images/captainLogo.png' : '/images/logo.png');

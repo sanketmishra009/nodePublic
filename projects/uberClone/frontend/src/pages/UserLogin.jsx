@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 
-
 const UserLogin = () => {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userData, setUserData] = useState({});
@@ -12,6 +12,9 @@ const UserLogin = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email, password);
+
+
+
         setUserData({ email: email, password: password });
         console.log(userData);
         setEmail('');

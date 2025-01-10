@@ -1,7 +1,8 @@
 import React, { createContext, useState } from "react";
 
+export const UserContextData = createContext();
+
 const UserContext = ({ children }) => {
-    const UserContextData = createContext({});
 
     const [user, setUser] = useState({
         fullname: {
